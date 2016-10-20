@@ -11,6 +11,7 @@ Features
   * Limit if Touched
   * Market if Touched
 * Support for stop triggers attached to:
+
   * Last trade price
   * Best bid
   * Best offer
