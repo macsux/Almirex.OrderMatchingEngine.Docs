@@ -55,30 +55,30 @@ Trading is performed automatically when an action performed against an orderbook
 
 Trades can be captured in one of two ways:
 
-Option 1 - Subscribing to "``Trade``" event
+Option 1 - Subscribing to ``Trade`` event
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. sourcecode:: csharp
 
-            orderBook.Trade += (sender, args) =>
-            {
-                Console.WriteLine($"Traded {args.Amount} {args.TakingOrder.Symbol} at ${args.Price}");
-            };
-            orderBook.NewOrder(orderBuy);
-            orderBook.NewOrder(orderSell); // <-- event will be fired on this line
+    orderBook.Trade += (sender, args) =>
+    {
+        Console.WriteLine($"Traded {args.Amount} {args.TakingOrder.Symbol} at ${args.Price}");
+    };
+    orderBook.NewOrder(orderBuy);
+    orderBook.NewOrder(orderSell); // <-- event will be fired on this line
             
 Option 2 - Capturing the trades into ``ExecutionReport``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. sourcecode:: csharp
 
-            // two execution reports will be produced, one for each side of the order. 
-            // the two parts can be correlated via common id in TradeId field
-            orderBook.TradeIdGenerator = () => Guid.NewGuid().ToString(); 
-            var executionReports = orderBook.WithReports(ob =>
-            {
-                ob.NewOrder(orderBuy);
-                ob.NewOrder(orderSell);
-            });
-            var tradeReportOrder1 = executionReports[2];
-            var tradeReportOrder2 = executionReports[3];
-            Console.WriteLine($"Traded {tradeReportOrder1.LastQty} {tradeReportOrder1.Symbol} at ${tradeReportOrder1.LastPx}");
-            Console.WriteLine($"TradeID: {tradeReportOrder1.TradeId} == {tradeReportOrder2.TradeId}");
+    // two execution reports will be produced, one for each side of the order. 
+    // the two parts can be correlated via common id in TradeId field
+    orderBook.TradeIdGenerator = () => Guid.NewGuid().ToString(); 
+    var executionReports = orderBook.WithReports(ob =>
+    {
+        ob.NewOrder(orderBuy);
+        ob.NewOrder(orderSell);
+    });
+    var tradeReportOrder1 = executionReports[2];
+    var tradeReportOrder2 = executionReports[3];
+    Console.WriteLine($"Traded {tradeReportOrder1.LastQty} {tradeReportOrder1.Symbol} at ${tradeReportOrder1.LastPx}");
+    Console.WriteLine($"TradeID: {tradeReportOrder1.TradeId} == {tradeReportOrder2.TradeId}");
