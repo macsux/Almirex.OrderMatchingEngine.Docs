@@ -6,7 +6,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   features.rst
    gettingstarted/index.rst
+   
 
 Indices and tables
 ==================
