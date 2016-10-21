@@ -8,7 +8,7 @@ Contents:
 
    features.rst
    gettingstarted/index.rst
-   
+   order_structure.rst   
 
 Indices and tables
 ==================
